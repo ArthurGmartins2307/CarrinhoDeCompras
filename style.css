@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --accent-color: #10b981;
+    --danger-color: #ef4444;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.5;
+    padding: 2rem 1rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    letter-spacing: -0.025em;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Grid de Produtos */
+.produtos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+}
+
+.cardProduto {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.cardProduto:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.cardProduto h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+}
+
+.cardProduto p {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+}
+
+/* Controles de Quantidade */
+.cardProduto .quantidade {
+    display: inline-block;
+    width: 40px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 1rem;
+    color: var(--text-main);
+}
+
+.menos, .mais {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 1px solid #e2e8f0;
+    background: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menos:hover, .mais:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* Botão Adicionar */
+.btAddCarrinho {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btAddCarrinho:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Seção do Carrinho */
+h1:not(header h1) {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+}
+
+.carrinho {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+    min-height: 100px;
+}
+
+.carrinho p {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+}
+
+.carrinho p:last-child {
+    border-bottom: none;
+}
+
+.total {
+    font-size: 1.5rem !important;
+    text-align: right;
+    color: var(--text-main);
+    margin-bottom: 1.5rem !important;
+    border: none !important;
+}
+
+.btLimpar {
+    display: block;
+    margin-left: auto;
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--danger-color);
+    background: transparent;
+    color: var(--danger-color);
+    font-weight: 600;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btLimpar:hover {
+    background: var(--danger-color);
+    color: white;
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .produtos {
+        grid-template-columns: 1fr;
+    }
+}

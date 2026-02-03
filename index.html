@@ -1,0 +1,155 @@
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">  
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Carrinho de compras</h1>
+    </header>
+    <main>
+        <div class="container">
+            
+            <section class="produtos">
+               <div class="cardProduto" data-nome="produto1" data-preco="50">
+                 <h2>Produto 1</h2>
+                 <p>R$ 50</p>
+                 <button class="menos">-</button>
+                 <p class="quantidade">0</p>
+                 <button class="mais">+</button>
+                 <button class="btAddCarrinho">Adicionar</button>
+              </div>
+
+              <div class="cardProduto" data-nome="produto2" data-preco="30">
+                 <h2>Produto 2</h2>
+                 <p>R$ 30</p>
+                 <button class="menos">-</button>
+                 <p class="quantidade">0</p>
+                 <button class="mais">+</button>
+                 <button class="btAddCarrinho">Adicionar</button>
+              </div>
+
+              <div class="cardProduto" data-nome="produto3" data-preco="25">
+                 <h2>Produto 3</h2>
+                 <p>R$ 25</p>
+                 <button class="menos">-</button>
+                 <p class="quantidade">0</p>
+                 <button class="mais">+</button>
+                 <button class="btAddCarrinho">Adicionar</button>
+              </div>
+
+              <div class="cardProduto" data-nome="produto4" data-preco="60">
+                 <h2>Produto 4</h2>
+                 <p>R$ 60</p>
+                 <button class="menos">-</button>
+                 <p class="quantidade">0</p>
+                 <button class="mais">+</button>
+                 <button class="btAddCarrinho">Adicionar</button>
+              </div>
+
+              <div class="cardProduto" data-nome="produto5" data-preco="150">
+                 <h2>Produto 5</h2>
+                 <p>R$ 150</p>
+                 <button class="menos">-</button>
+                 <p class="quantidade">0</p>
+                 <button class="mais">+</button>
+                 <button class="btAddCarrinho">Adicionar</button>
+              </div>
+
+              <div class="cardProduto" data-nome="produto6" data-preco="40">
+                 <h2>Produto 6</h2>
+                 <p>R$ 40</p>
+                 <button class="menos">-</button>
+                 <p class="quantidade">0</p>
+                 <button class="mais">+</button>
+                 <button class="btAddCarrinho">Adicionar</button>
+              </div>
+            </section>
+            <h1>Carrinho</h1>
+            <div class="carrinho">
+    
+            </div>
+            <h1 class="total"></h1>
+            <button class="btLimpar">Limpar Carrinho</button>
+        </div>
+    </main>
+</body>
+<script>
+    const carrinhoDiv = document.querySelector('.carrinho');
+    const totalDiv = document.querySelector('.total');
+    const botaoLimpar = document.querySelector('.btLimpar');
+
+    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || {};
+
+    function salvarCarrinho() {
+       localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    };
+
+    document.querySelectorAll('.cardProduto').forEach(card => {
+    const nome = card.dataset.nome;
+    const preco = Number(card.dataset.preco);
+
+    const qtdEl = card.querySelector('.quantidade');
+    const mais = card.querySelector('.mais');
+    const menos = card.querySelector('.menos');
+    const add = card.querySelector('.btAddCarrinho');
+
+    let qtd = 0;
+
+    mais.onclick = () => {
+        qtd++;
+        qtdEl.textContent = qtd;
+    };
+
+    menos.onclick = () => {
+        if (qtd > 0) {
+            qtd--;
+            qtdEl.textContent = qtd;
+        }
+    };
+
+    add.onclick = () => {
+        if (qtd === 0) return alert('Escolha a quantidade');
+
+        carrinho[nome] = { qtd, preco };
+        salvarCarrinho();
+        renderCarrinho();
+
+        qtd = 0;
+        qtdEl.textContent = 0;
+    };
+});
+
+    function renderCarrinho(){
+        carrinhoDiv.innerHTML = ``;
+        let total = 0;
+
+        for(let produto in carrinho){
+            const item = carrinho[produto];
+            const linha = document.createElement('p');
+
+            linha.textContent = `${produto} - ${item.qtd}x = ${item.qtd * item.preco}`;
+            carrinhoDiv.appendChild(linha);
+
+            total += item.qtd * item.preco;
+    
+            totalDiv.textContent = `Total: R$ ${total}`;
+        };
+    };
+
+    botaoLimpar.onclick = () => {
+       carrinho = {};               
+       localStorage.removeItem('carrinho'); 
+       renderCarrinho();  
+       total = 0
+       totalDiv.textContent = `Total: R$ ${total}`           
+    };
+
+    renderCarrinho()
+</script>
+</html>
